@@ -22,7 +22,7 @@ Creating mods for Dungeon Clawler becomes more streamlined with this handler, es
 
 ### Sample Mod Project
 
-A Sample Mod project is available in the releases section, ready for compilation and use with the handler. This serves as a template to help you get started.
+A Sample Mod project is available in this Github pages code called DC-Sample Mod, its ready for compilation and use with the handler. This serves as a template to help you get started.
 
 ### Mod Structure
 
