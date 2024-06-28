@@ -1,7 +1,3 @@
-Sure! Here's a more visually appealing and eye-catching GitHub README for your project:
-
----
-
 # Dungeon Clawler Mod Handler
 
 ![Dungeon Clawler Mod Handler](https://your-image-link.com/banner.png)
