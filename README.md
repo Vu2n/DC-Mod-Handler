@@ -5,7 +5,6 @@
 A **BepInEx** mod handler/loader for the game **Dungeon Clawler**.
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Vu2n/DC-Mod-Handler)
-![GitHub](https://img.shields.io/github/license/Vu2n/DC-Mod-Handler)
 ![GitHub issues](https://img.shields.io/github/issues/Vu2n/DC-Mod-Handler)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Vu2n/DC-Mod-Handler)
 
