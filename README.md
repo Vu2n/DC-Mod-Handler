@@ -4,6 +4,24 @@
 
 A **BepInEx** mod handler/loader for the game **Dungeon Clawler**.
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Vu2n/DC-Mod-Handler)
+![GitHub](https://img.shields.io/github/license/Vu2n/DC-Mod-Handler)
+![GitHub issues](https://img.shields.io/github/issues/Vu2n/DC-Mod-Handler)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Vu2n/DC-Mod-Handler)
+
+## 📑 Table of Contents
+
+- [Installation](#-installation)
+- [Mod Creation](#-mod-creation)
+  - [Sample Mod Project](#-sample-mod-project)
+  - [Sample Item Mod Project](#-sample-item-mod-project)
+  - [Mod Structure](#-mod-structure)
+  - [Loading Your Mod](#-loading-your-mod)
+- [FAQs](#-faqs)
+- [Support](#-support)
+- [Contributing](#-contributing)
+- [License](#-license)
+
 ## 🚀 Installation
 
 1. **Download BepInEx**:
@@ -56,6 +74,26 @@ Once your mod is set up:
 1. Start the game.
 2. Open the mods list from the "Mods" button.
 3. Your mod should be listed and ready to use.
+
+---
+
+## ❓ FAQs
+
+**Q1: How do I troubleshoot common issues?**
+
+A1: Check the BepInEx logs located in the `BepInEx` folder. Ensure all files are placed correctly and the game version is compatible.
+
+**Q2: Can I create mods for other versions of the game?**
+
+A2: Currently, the mod handler is optimized for the latest version of Dungeon Clawler.
+
+## 🤝 Support
+
+If you encounter any issues or have questions, please open an issue on the GitHub repository or get in contact with me on Dicsord @ perle.btr
+
+## 📜 License
+
+This project is licensed under the MIT License.
 
 ---
 
