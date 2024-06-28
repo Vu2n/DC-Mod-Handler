@@ -24,6 +24,10 @@ Creating mods for Dungeon Clawler becomes more streamlined with this handler, es
 
 A Sample Mod project is available in this Github pages code called DC-Sample Mod, its ready for compilation and use with the handler. This serves as a template to help you get started.
 
+### Sample Item Mod Project
+
+A Sample Item Mod project is available in this Github pages code called DC-SampleItem, its ready for compilation and use with the handler. This serves as a template to help you get started making items.
+
 ### Mod Structure
 
 Each mod must be in its own folder within the `Mods` directory. For example:
