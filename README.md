@@ -1,6 +1,6 @@
 # Dungeon Clawler Mod Handler
 
-![Dungeon Clawler Mod Handler](https://your-image-link.com/banner.png)
+![Dungeon Clawler Mod Handler](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2356780/header.jpg?t=1719496518)
 
 A **BepInEx** mod handler/loader for the game **Dungeon Clawler**.
 
