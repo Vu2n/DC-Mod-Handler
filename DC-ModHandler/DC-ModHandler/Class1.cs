@@ -54,7 +54,7 @@ public class ModLoader : BaseUnityPlugin
         ModStar = LoadTextureFromFile(filePath);
         
         
-        CreateModList();
+        CreateModList(); // After finishing game, need to recall this method. Will add later.
         ExecuteMods();
     }
 
