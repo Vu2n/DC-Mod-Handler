@@ -2,7 +2,7 @@
 
 ![Dungeon Clawler Mod Handler](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2356780/header.jpg?t=1719496518)
 
-A **BepInEx** mod handler/loader for the game **Dungeon Clawler**.
+A **BepInEx** mod handler/loader for the game **Dungeon Clawler** with Lua scripting support.
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Vu2n/DC-Mod-Handler)
 ![GitHub issues](https://img.shields.io/github/issues/Vu2n/DC-Mod-Handler)
@@ -65,7 +65,7 @@ author="Author of the mod"
 mod="SampleMod.dll"
 ```
 
-Additionally, the mod folder should include the mod's DLL file as specified in the manifest.
+For Lua mods, use `.lua` extension for the mod field and include Lua scripts accordingly.
 
 ### 🚀 Loading Your Mod
 
