@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Collections.Generic;
 using BepInEx;
 using BepInEx.Logging;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using NLua;
 
 [BepInPlugin("com.vu2n.modloader", "Vu2ns Mod Handler", "1.0.0")]
 public class ModLoader : BaseUnityPlugin
@@ -18,17 +20,21 @@ public class ModLoader : BaseUnityPlugin
     private GameObject modOverviewScreen;
     public static ManualLogSource Logger;
     private Texture2D ModStar;
+    private Lua lua;
+
     private void Awake()
     {
         Logger = base.Logger;
-        Logger.LogInfo("Mod Loader initialized");
 
         if (!Directory.Exists(ModsDirectory))
         {
             Directory.CreateDirectory(ModsDirectory);
             Logger.LogInfo($"Created mods directory at {ModsDirectory}");
         }
+
+        lua = new Lua();
     }
+
     Texture2D LoadTextureFromFile(string filePath)
     {
         Texture2D texture = null;
@@ -47,15 +53,26 @@ public class ModLoader : BaseUnityPlugin
 
         return texture;
     }
+    
     private void Start()
     {
         LoadModsFromDirectory();
-        string filePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "mod_star.png");
+        string filePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "DC_ModHandler/mod_star.png");
         ModStar = LoadTextureFromFile(filePath);
-        
-        
-        CreateModList(); // After finishing game, need to recall this method. Will add later.
+
+        CreateModList();
+        SceneManager.sceneLoaded += OnSceneLoaded;
         ExecuteMods();
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        CreateModList();
     }
 
     private void LoadModsFromDirectory()
@@ -136,31 +153,45 @@ public class ModLoader : BaseUnityPlugin
             {
                 modPath = Path.GetFullPath(modPath);
             }
-            Assembly modAssembly = Assembly.LoadFrom(modPath);
-            Type modType = modAssembly.GetTypes().FirstOrDefault(t => typeof(IMod).IsAssignableFrom(t) && !t.IsInterface);
 
-            if (modType != null)
+            if (modPath.EndsWith(".lua", StringComparison.OrdinalIgnoreCase))
             {
-                modInfo.ModInstance = (IMod)Activator.CreateInstance(modType);
-                modInfo.ModInstance.OnLoad();
-                Logger.LogInfo($"Loaded mod: {modInfo.Name}");
+                using (var lua = new NLua.Lua())
+                {
+                    lua.LoadCLRPackage();
+                    lua["mod"] = this;
+
+                    lua.DoFile(modPath);
+
+                    var onLoadFunction = lua.GetFunction("BasicLuaMod.OnLoad");
+                    if (onLoadFunction != null)
+                    {
+                        onLoadFunction.Call();
+                    }
+                    else
+                    {
+                        Logger.LogError($"OnLoad function not found in Lua mod: {modInfo.Name}");
+                    }
+                }
+
+                Logger.LogInfo($"Loaded Lua mod: {modInfo.Name}");
             }
             else
             {
-                Logger.LogError($"No valid mod class found in: {modPath}");
+                Assembly modAssembly = Assembly.LoadFrom(modPath);
+                Type modType = modAssembly.GetTypes().FirstOrDefault(t => typeof(IMod).IsAssignableFrom(t) && !t.IsInterface);
+
+                if (modType != null)
+                {
+                    modInfo.ModInstance = (IMod)Activator.CreateInstance(modType);
+                    modInfo.ModInstance.OnLoad();
+                    Logger.LogInfo($"Loaded mod: {modInfo.Name}");
+                }
+                else
+                {
+                    Logger.LogError($"No valid mod class found in: {modPath}");
+                }
             }
-        }
-        catch (ReflectionTypeLoadException rtle)
-        {
-            Logger.LogError($"ReflectionTypeLoadException while loading mod from {modDirectory}: {rtle.Message}");
-            foreach (var loaderException in rtle.LoaderExceptions)
-            {
-                Logger.LogError($"LoaderException: {loaderException.Message}");
-            }
-        }
-        catch (TypeLoadException tle)
-        {
-            Logger.LogError($"TypeLoadException while loading mod from {modDirectory}: {tle.Message}");
         }
         catch (Exception ex)
         {
@@ -199,11 +230,11 @@ public class ModLoader : BaseUnityPlugin
 
         modListButton.name = "ModListButton";
         SetText(modListButton, "Label", "Mods");
-        
+
         Sprite modStarSprite = Sprite.Create(ModStar, new Rect(0, 0, ModStar.width, ModStar.height), Vector2.one * 0.5f);
         GameObject ModButtonImage = modListButton.transform.Find("Image").gameObject;
         ModButtonImage.GetComponent<UnityEngine.UI.Image>().sprite = modStarSprite;
-        
+
         GameObject itemOverviewScreen = FindInactiveObject("ItemOverviewScreen");
         if (itemOverviewScreen == null)
         {
@@ -313,7 +344,7 @@ public class ModLoader : BaseUnityPlugin
             layoutGroup.childControlHeight = false;
             layoutGroup.childForceExpandWidth = false;
             layoutGroup.childForceExpandHeight = false;
-            
+
             foreach (ModInfo modInfo in modList)
             {
                 GameObject modEntry = new GameObject(modInfo.Name);
@@ -325,7 +356,7 @@ public class ModLoader : BaseUnityPlugin
                 TextMeshProUGUI text = modEntry.AddComponent<TextMeshProUGUI>();
                 TextMeshProUGUI titleText = modOverviewScreen.transform.Find("Title").GetComponent<TextMeshProUGUI>();
                 TMP_FontAsset font = titleText.font;
-                
+
                 text.fontSize = titleText.fontSize * 0.4f;
                 text.alignment = titleText.alignment;
                 text.color = titleText.color;
