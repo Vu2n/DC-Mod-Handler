@@ -64,7 +64,7 @@ author="Author of the mod"
 mod="SampleMod.dll"
 ```
 
-For Lua mods, use `.lua` extension for the mod field and include Lua scripts accordingly.
+For Lua mods, use `.Lua` extension for the mod field and include Lua scripts accordingly.
 
 ### 🚀 Loading Your Mod
 
