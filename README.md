@@ -18,7 +18,6 @@ A **BepInEx** mod handler/loader for the game **Dungeon Clawler** with Lua scrip
   - [Loading Your Mod](#-loading-your-mod)
 - [FAQs](#-faqs)
 - [Support](#-support)
-- [Contributing](#-contributing)
 - [License](#-license)
 
 ## 🚀 Installation
