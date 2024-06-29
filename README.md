@@ -88,7 +88,7 @@ A2: Currently, the mod handler is optimized for the latest version of Dungeon Cl
 
 ## 🤝 Support
 
-If you encounter any issues or have questions, please open an issue on the GitHub repository or get in contact with me on Dicsord @ perle.btr
+If you encounter any issues or have questions, please open an issue on the GitHub repository or get in contact with me on Discord @ perle.btr
 
 ## 📜 License
 
