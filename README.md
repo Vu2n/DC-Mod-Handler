@@ -8,7 +8,7 @@ A **BepInEx** mod handler/loader for the game **Dungeon Clawler** with Lua scrip
 ![GitHub issues](https://img.shields.io/github/issues/Vu2n/DC-Mod-Handler)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Vu2n/DC-Mod-Handler)
 
-##  {11/08/24 Mod handler is possibly broken after the game pushed a hotfix}
+##  11/08/24 - Mod handler is possibly broken after the game pushed a hotfix
 
 ## 📑 Table of Contents
 
